@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/storyActivityLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".StoryActivity">
+
+    <include layout="@layout/fragment_blank" />
+
+    <Button
+        android:id="@+id/snackbarBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Show Snack bar"
+        />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/deleteFabBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="50dp"
+        android:layout_marginRight="50dp"
+        android:src="@drawable/ic_launcher_background"
+        />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/addFabBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|left"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="50dp"
+        android:src="@drawable/ic_launcher_foreground"
+        />
+
+</android.support.design.widget.CoordinatorLayout>
