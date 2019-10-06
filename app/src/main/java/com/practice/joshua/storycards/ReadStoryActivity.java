@@ -1,6 +1,7 @@
 package com.practice.joshua.storycards;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.List;
@@ -31,6 +33,14 @@ public class ReadStoryActivity extends AppCompatActivity {
         PagerAdapter pagerAdapter =
                 new ViewPagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(pagerAdapter);
+
+        FloatingActionButton addStoryFabBtn = findViewById(R.id.addstory_fabbtn);
+        addStoryFabBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ReadStoryActivity.this, "Create a new story...", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

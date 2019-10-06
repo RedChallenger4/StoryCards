@@ -50,10 +50,10 @@ public class ItemFragment extends Fragment {
         TextView descriptionText = (TextView) rootView.findViewById(R.id.descriptionText);
         descriptionText.setText(mStory.getDescription());
 
-        NumberFormat formatter = NumberFormat.getCurrencyInstance();
-        String price = formatter.format(mStory.getPage());
-        TextView priceText = (TextView) rootView.findViewById(R.id.pageText);
-        priceText.setText(price);
+        NumberFormat formatter = NumberFormat.getInstance();
+        String pageNum = formatter.format(mStory.getPage());
+        TextView pageNumText = (TextView) rootView.findViewById(R.id.pageNumText);
+        pageNumText.setText("Page : "+pageNum);
 
         String productId = mStory.getStoryId();
         int imageResource = getActivity().getResources()

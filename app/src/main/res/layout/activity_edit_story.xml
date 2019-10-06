@@ -1,9 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".EditStoryActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <EditText
+        android:id="@+id/editNameText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:hint="Story name"
+        android:inputType="text"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/pageNumText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editNameText"
+        android:gravity="center"
+        android:text="0"
+        android:textSize="20sp" />
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/imageView"
+        android:layout_below="@+id/pageNumText"
+
+        android:layout_marginTop="20dp">
+
+        <EditText
+            android:id="@+id/editDescriptionText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Add story description"
+            android:inputType="text"
+            android:textSize="16sp" />
+
+    </ScrollView>
+    <!-- TODO:// backgroundTint is only for API 21 and higher. Need one for API 16 or higher or
+        condition to solve that issue -->
+    <Button
+        android:id="@+id/doneBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="33dp"
+        android:layout_above="@+id/imagePreview"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="@color/colorPrimary"
+        android:layout_margin="30dp"
+        android:text="Done"/>
+
+    <ImageView
+        android:id="@+id/imagePreview"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/jacket101"
+        android:onClick="addBackgroundClick"
+        />
+
+
+
+
+</RelativeLayout>
