@@ -1,5 +1,6 @@
 package com.practice.joshua.storycards;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,15 +14,16 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 public class EditStoryActivity extends AppCompatActivity {
-
+    private EditText editNameText;
+    private EditText editDescriptionText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_story);
 
 
-        EditText editNameText = findViewById(R.id.editNameText);
-        EditText editDescriptionText = findViewById(R.id.editDescriptionText);
+        editNameText = findViewById(R.id.editNameText);
+        editDescriptionText = findViewById(R.id.editDescriptionText);
         ImageView imagePreview = findViewById(R.id.imagePreview);
         Button doneBtn = findViewById(R.id.doneBtn);
 
@@ -73,7 +75,19 @@ public class EditStoryActivity extends AppCompatActivity {
         doneBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(EditStoryActivity.this, "Done Button.", Toast.LENGTH_SHORT).show();
+                if(editNameText.getText().toString().trim().equalsIgnoreCase(""))
+                    editNameText.setError("This field cannot be blank");
+                else if(editDescriptionText.getText().toString().trim().equalsIgnoreCase(""))
+                    editDescriptionText.setError("This field cannot be blank");
+                else {
+//                    Intent returnIntent = new Intent();
+//                    returnIntent.putExtra("result",result);
+//                    setResult(Activity.RESULT_OK,returnIntent);
+//                    finish();
+
+                    Toast.makeText(EditStoryActivity.this, "Done Button.", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }
@@ -83,8 +97,5 @@ public class EditStoryActivity extends AppCompatActivity {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu_readstory, menu);
         return super.onCreateOptionsMenu(menu);
-    }
-
-    public void addBackgroundClick(View view) {
     }
 }
