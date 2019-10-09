@@ -2,6 +2,7 @@ package com.practice.joshua.storycards;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -22,9 +23,12 @@ import java.util.List;
 public class ReadStoryActivity extends AppCompatActivity {
 
     private final List<Story> stories = DataProvider.storyList;
-    private final int numPages = stories.size();
+//    private final int numPages = stories.size();
 
     private ViewPager mPager;
+    private PagerAdapter mAdapter;
+
+    private MenuItem delete_item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +36,9 @@ public class ReadStoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_read_story);
 
         mPager = findViewById(R.id.main_pager);
-        PagerAdapter pagerAdapter =
-                new ViewPagerAdapter(getSupportFragmentManager());
-        mPager.setAdapter(pagerAdapter);
+        //PagerAdapter pagerAdapter
+        mAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        mPager.setAdapter(mAdapter);
 
         FloatingActionButton addStoryFabBtn = findViewById(R.id.addstory_fabbtn);
         addStoryFabBtn.setOnClickListener(new View.OnClickListener() {
@@ -65,7 +69,7 @@ public class ReadStoryActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_delete:
-                Toast.makeText(this, "Delete Action", Toast.LENGTH_SHORT).show();
+                removeCurrentItem();
                 // TODO: delete story first if it works
                 // may have to use below resource
                 // https://stackoverflow.com/questions/10396321/remove-fragment-page-from-viewpager-in-android
@@ -81,6 +85,35 @@ public class ReadStoryActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        delete_item = menu.findItem(R.id.action_delete);
+//        if (stories.size() > 3) {
+//            delete_item.setEnabled(true);
+//            delete_item.getIcon().setAlpha(130);
+//        } else {
+//            // disabled
+//            delete_item.setEnabled(false);
+//            delete_item.getIcon().setAlpha(255);
+//        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    private void removeCurrentItem() {
+        if (stories.size() > 1) {
+            delete_item.setEnabled(true);
+            delete_item.getIcon().setAlpha(255);
+        } else {
+            // disabled
+            delete_item.setEnabled(false);
+            delete_item.getIcon().setAlpha(100);
+            Toast.makeText(this, "Cannot remove... Size is : " + stories.size(), Toast.LENGTH_SHORT).show();
+        }
+        int position = mPager.getCurrentItem();
+        stories.remove(position);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -110,12 +143,20 @@ public class ReadStoryActivity extends AppCompatActivity {
             return ItemFragment.newInstance(stories.get(pos));
         }
 
+        @Override
+        public int getItemPosition(@NonNull Object object) {
+            //return super.getItemPosition(object);
+            return PagerAdapter.POSITION_NONE;
+        }
+
+
         /*
             Determine how many pages to create
          */
         @Override
         public int getCount() {
-            return numPages;
+//            return numPages;
+            return stories.size();
         }
     }
 }
