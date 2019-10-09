@@ -28,7 +28,7 @@ public class ReadStoryActivity extends AppCompatActivity {
     private ViewPager mPager;
     private PagerAdapter mAdapter;
 
-    private MenuItem delete_item;
+    private MenuItem delete_item, edit_item, share_item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +72,9 @@ public class ReadStoryActivity extends AppCompatActivity {
                 removeCurrentItem();
                 // TODO: delete story first if it works
                 // may have to use below resource
-                // https://stackoverflow.com/questions/10396321/remove-fragment-page-from-viewpager-in-android
+                // https://stackoverflow.com/questions/28108940/dynamically-remove-an-item-from-a-viewpager-with-fragmentstatepageradapter
                 break;
+
             case R.id.action_edit:
                 Toast.makeText(this, "Edit Action", Toast.LENGTH_SHORT).show();
                 Intent editStoryIntent = new Intent(ReadStoryActivity.this, EditStoryActivity.class);
@@ -90,6 +91,8 @@ public class ReadStoryActivity extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         delete_item = menu.findItem(R.id.action_delete);
+        edit_item = menu.findItem(R.id.action_edit);
+        share_item = menu.findItem(R.id.action_share);
 //        if (stories.size() > 3) {
 //            delete_item.setEnabled(true);
 //            delete_item.getIcon().setAlpha(130);
@@ -102,18 +105,33 @@ public class ReadStoryActivity extends AppCompatActivity {
     }
 
     private void removeCurrentItem() {
-        if (stories.size() > 1) {
+        if (stories.size() > 0) {
+            // TODO: Add 'delete item' to DataProvider
             delete_item.setEnabled(true);
+            edit_item.setEnabled(true);
+            share_item.setEnabled(true);
+
             delete_item.getIcon().setAlpha(255);
-        } else {
-            // disabled
+            edit_item.getIcon().setAlpha(255);
+            share_item.getIcon().setAlpha(255);
+
+            int position = mPager.getCurrentItem();
+            stories.remove(position);
+            mAdapter.notifyDataSetChanged();
+
+        } else if (stories.size() == 1) {
             delete_item.setEnabled(false);
-            delete_item.getIcon().setAlpha(100);
+            edit_item.setEnabled(false);
+            share_item.setEnabled(false);
+
+            delete_item.getIcon().setAlpha(150);
+            edit_item.getIcon().setAlpha(150);
+            share_item.getIcon().setAlpha(150);
+        }
+        else {
+            // disabled
             Toast.makeText(this, "Cannot remove... Size is : " + stories.size(), Toast.LENGTH_SHORT).show();
         }
-        int position = mPager.getCurrentItem();
-        stories.remove(position);
-        mAdapter.notifyDataSetChanged();
     }
 
     @Override
